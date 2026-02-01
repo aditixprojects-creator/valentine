@@ -53,7 +53,7 @@
     image-rendering: pixelated;
   }
 
-  /* Boss fight screen shake */
+  /* Boss fight shake */
   @keyframes bossShake {
     0% { transform: translate(0, 0); }
     10% { transform: translate(-8px, 6px); }
@@ -70,6 +70,20 @@
 
   .shake {
     animation: bossShake 0.6s ease-in-out;
+  }
+
+  /* Easter egg overlay */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    z-index: 999;
+    text-align: center;
   }
 </style>
 </head>
@@ -90,12 +104,22 @@
 <canvas id="fireworks"></canvas>
 
 <script>
-/* NO button runs away */
+/* NO button logic + Easter egg counter */
 const noBtn = document.getElementById("no");
+let noAttempts = 0;
+
 noBtn.addEventListener("mouseover", () => {
   const x = Math.random() * 200 - 100;
   const y = Math.random() * 200 - 100;
   noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+noBtn.addEventListener("click", () => {
+  noAttempts++;
+
+  if (noAttempts === 3) {
+    triggerDestiny();
+  }
 });
 
 /* Fireworks */
@@ -145,7 +169,10 @@ function animate() {
 }
 
 /* YES button */
-document.getElementById("yes").addEventListener("click", () => {
+document.getElementById("yes").addEventListener("click", victory);
+
+/* Victory function (used by YES and Easter egg) */
+function victory() {
   const card = document.getElementById("card");
   card.classList.add("shake");
 
@@ -162,7 +189,20 @@ document.getElementById("yes").addEventListener("click", () => {
   setTimeout(() => {
     card.classList.remove("shake");
   }, 700);
-});
+}
+
+/* Easter egg trigger */
+function triggerDestiny() {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+  overlay.innerHTML = "❌ YOU CANNOT ESCAPE DESTINY ❌<br><br><i>Valentine accepted automatically.</i>";
+  document.body.appendChild(overlay);
+
+  setTimeout(() => {
+    overlay.remove();
+    victory();
+  }, 1500);
+}
 </script>
 
 </body>
