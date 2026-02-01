@@ -58,6 +58,10 @@
 
 <div class="card" id="card">
   <h1>Will you be my Valentine? 💖</h1>
+<p style="font-size:14px; margin-top:10px;">
+  <b>Aditi 🤝 Mayank</b><br>
+  <i>A contract sealed by chaos, pixels, and vibes</i>
+</p>
   <button id="yes">YES</button>
   <button id="no">NO</button>
 </div>
@@ -119,7 +123,14 @@ function animate() {
 
 document.getElementById("yes").addEventListener("click", () => {
   document.getElementById("card").innerHTML =
-    "<h1>🎉 YES ACCEPTED 🎉</h1><p>You have unlocked:<br><b>MAXIMUM ROMANCE</b> 💘</p>";
+    "<h1>🎉 MAYANK HAS BEEN CLAIMED 🎉</h1>
+<p>
+  <b>Aditi + Mayank</b><br>
+  have unlocked:<br>
+  <span style='font-size:22px;'>💘 MAXIMUM ROMANCE 💘</span><br><br>
+  <i>No refunds. No takebacks.</i>
+</p>";
+
 
   animationRunning = true;
   createFirework(canvas.width / 2, canvas.height / 2);
